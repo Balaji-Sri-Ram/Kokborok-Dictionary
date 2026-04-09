@@ -2,6 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Sparkles, Loader2, Bot, ChevronDown } from 'lucide-react';
 import { AnalysisStatus, AI_MODELS } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 interface AnalysisPanelProps {
   status: AnalysisStatus;
@@ -22,6 +23,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
   selectedModel,
   onModelChange
 }) => {
+  const { t } = useLanguage();
   return (
     <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-zinc-950 dark:to-violet-950/30 rounded-2xl border border-indigo-100 dark:border-violet-900/50 p-6 mt-6">
       <div className="flex items-center justify-between mb-4">
@@ -30,7 +32,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
             <Sparkles size={20} />
           </div>
           <div>
-            <h3 className="font-bold text-slate-800 dark:text-zinc-100">AI Context Analysis</h3>
+            <h3 className="font-bold text-slate-800 dark:text-zinc-100">{t('AI Context Analysis')}</h3>
             <div className="flex items-center mt-1">
               <span className="text-sm text-slate-500 dark:text-zinc-500 mr-2">Powered by</span>
               <div className="relative">
@@ -58,7 +60,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
             disabled={!canAnalyze}
             className="px-4 py-2 bg-white dark:bg-zinc-900 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800/60 rounded-lg text-sm font-semibold hover:bg-violet-50 dark:hover:bg-violet-950/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
           >
-            Analyze Phrase
+            {t('Analyze Phrase')}
           </button>
         )}
       </div>
@@ -66,7 +68,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
       {status === AnalysisStatus.LOADING && (
         <div className="flex flex-col items-center justify-center py-8 text-violet-600 dark:text-violet-400">
           <Loader2 size={32} className="animate-spin mb-3" />
-          <p className="text-sm font-medium animate-pulse">Consulting linguistic models...</p>
+          <p className="text-sm font-medium animate-pulse">{t('Consulting linguistic models')}...</p>
         </div>
       )}
 
@@ -84,7 +86,7 @@ export const AnalysisPanel: React.FC<AnalysisPanelProps> = ({
 
       {status === AnalysisStatus.IDLE && (
         <p className="text-slate-500 dark:text-zinc-500 text-sm italic">
-          Click "Analyze Phrase" to get deep insights, grammatical structure, and cultural context for your Kokborok text.
+          {t('Click "Analyze Phrase" to get deep insights, grammatical structure, and cultural context for your')} {t('Kokborok')} {t('text')}.
         </p>
       )}
     </div>

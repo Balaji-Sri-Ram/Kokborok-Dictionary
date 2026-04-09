@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Mic, MicOff, Search, X } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { motion } from 'framer-motion';
 
 interface InputAreaProps {
   value: string;
@@ -17,6 +19,7 @@ export const InputArea: React.FC<InputAreaProps> = ({
   toggleListening
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -26,14 +29,14 @@ export const InputArea: React.FC<InputAreaProps> = ({
   }, [value]);
 
   return (
-    <div className="group rounded-2xl border border-slate-200 dark:border-zinc-800 transition-all duration-200 focus-within:border-violet-500 focus-within:ring-2 focus-within:ring-violet-500 focus-within:ring-offset-0 shadow-sm focus-within:shadow-violet-500/20 focus-within:shadow-md">
+    <div className="group rounded-2xl border-2 border-slate-300 dark:border-zinc-700 transition-all duration-300 focus-within:border-indigo-600 dark:focus-within:border-violet-500">
       <div className="bg-white dark:bg-zinc-950 rounded-2xl overflow-hidden">
         <div className="relative">
           <textarea
             ref={textareaRef}
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            placeholder="Enter Kokborok text here (e.g., 'Khaini bwkha')..."
+            placeholder={`${t('Enter Kokborok text here')} (e.g., 'Khaini bwkha')...`}
             className="w-full p-6 text-lg text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-600 bg-transparent border-none outline-none focus:ring-0 resize-none min-h-[120px]"
             spellCheck={false}
           />
@@ -49,7 +52,7 @@ export const InputArea: React.FC<InputAreaProps> = ({
           )}
         </div>
 
-        <div className="flex items-center justify-between px-4 py-3 bg-slate-50 dark:bg-zinc-900 border-t border-slate-100 dark:border-zinc-800 group-focus-within:border-t-2 group-focus-within:border-violet-500 transition-colors duration-200">
+        <div className="flex items-center justify-between px-4 py-3 bg-slate-50 dark:bg-zinc-900 border-t-2 border-slate-300 dark:border-zinc-700 group-focus-within:border-indigo-600 dark:group-focus-within:border-violet-500 transition-colors duration-200">
           <div className="flex items-center gap-2">
             <button
               onClick={toggleListening}
@@ -59,7 +62,7 @@ export const InputArea: React.FC<InputAreaProps> = ({
                 }`}
             >
               {isListening ? <Mic size={16} /> : <MicOff size={16} />}
-              {isListening ? 'Listening...' : 'Dictate'}
+              {isListening ? t('Listening...') : t('Dictate')}
             </button>
           </div>
 
@@ -69,7 +72,7 @@ export const InputArea: React.FC<InputAreaProps> = ({
             className="flex items-center gap-2 px-6 py-2 bg-violet-600 text-white rounded-full font-medium hover:bg-violet-700 hover:shadow-lg hover:shadow-violet-500/25 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:translate-y-0 transition-all"
           >
             <Search size={18} />
-            Translate
+            {t('Translate')}
           </button>
         </div>
       </div>

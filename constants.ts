@@ -20,9 +20,11 @@ export const MOCK_EXAMPLES = [
 
 export const STATIC_DATASET: DictionaryEntry[] = DICTIONARY;
 
-export const findKokborokTranslation = (english: string): string => {
+export const findTargetTranslation = (english: string, language: string = 'kokborok'): string => {
+  const field = language.toLowerCase();
   const result = STATIC_DATASET.find(e => e.english.toLowerCase() === english.toLowerCase());
-  return result ? result.kokborok : "Translation not found";
+  if (!result) return "Translation not found";
+  return (result[field] as string) || (result['kokborok'] as string) || "Translation not found";
 };
 
 /**
@@ -38,22 +40,27 @@ const normalizePhrase = (phrase: string): string => {
 };
 
 /**
- * Searches for a Kokborok word in the dataset and returns ALL matching English headwords.
+ * Searches for a word in the dataset and returns ALL matching English headwords.
  * Uses STRICT PHRASE MATCHING (comma/semicolon/slash separated).
  */
-export const findEnglishTranslation = (kokborok: string): DictionaryEntry[] => {
-  if (!kokborok) return [];
+export const findEnglishTranslation = (query: string, language: string = 'kokborok'): DictionaryEntry[] => {
+  if (!query) return [];
 
-  const inputPhrase = normalizePhrase(kokborok);
+  const inputPhrase = normalizePhrase(query);
   if (!inputPhrase) return [];
 
-  return STATIC_DATASET.filter(e => {
-    // 1. Check if the input specifically matches the "kokborok" field itself (rare, but possibly for single word entries)
-    if (normalizePhrase(e.kokborok) === inputPhrase) return true;
+  const field = language.toLowerCase();
 
-    // 2. Split the kokborok definition into phrases based on common delimiters
-    // Delimiters found in PDF: comma (,), semicolon (;), slash (/), and sometimes dash (-)
-    const phrases = e.kokborok.split(/[,;\/]/);
+  return STATIC_DATASET.filter(e => {
+    // Get the definition string for the specified language
+    const definition = (e[field] as string) || (e['kokborok'] as string) || "";
+    if (!definition) return false;
+
+    // 1. Check if the input specifically matches the field itself
+    if (normalizePhrase(definition) === inputPhrase) return true;
+
+    // 2. Split the definition into phrases based on common delimiters
+    const phrases = definition.split(/[,;\/]/);
 
     return phrases.some(p => {
       const cleanP = normalizePhrase(p);

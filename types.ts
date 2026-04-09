@@ -3,6 +3,7 @@ export interface DictionaryEntry {
   english: string;
   pronunciation: string;
   pos: string;
+  [key: string]: string | number; // Allow dynamic fields for other languages
 }
 
 export interface TranslationResult {
