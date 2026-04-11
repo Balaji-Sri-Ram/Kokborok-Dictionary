@@ -1,9 +1,11 @@
+export type Language = string;
+
 export interface DictionaryEntry {
   kokborok: string;
   english: string;
   pronunciation: string;
   pos: string;
-  [key: string]: string | number; // Allow dynamic fields for other languages
+  [key: string]: string | number; // Allow dynamic fields for any language
 }
 
 export interface TranslationResult {

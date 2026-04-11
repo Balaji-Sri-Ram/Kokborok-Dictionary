@@ -1,35 +1,43 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-
-export type Language = 
-  | 'Kokborok' | 'Reang' | 'Jamatia' | 'Uchoi' | 'Noatia' 
-  | 'Halam' | 'Chakma' | 'Mog' | 'Munda' | 'Oraon' 
-  | 'Santhal' | 'Kuki' | 'Lusai (Mizo)' | 'Chaimal' 
-  | 'Garo' | 'Lepcha';
+import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
+import { getAvailableLanguages } from '../services/languageDiscovery';
+import { Language } from '../types';
 
 interface LanguageContextType {
   selectedLanguage: Language;
   setSelectedLanguage: (lang: Language) => void;
+  availableLanguages: Language[];
   t: (text: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>('Kokborok');
+  const [availableLanguages] = useState<Language[]>(() => {
+    const langs = getAvailableLanguages();
+    console.log('Available Languages:', langs);
+    return langs;
+  });
+  
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(() => {
+    const defaultLang = availableLanguages.includes('Kokborok') ? 'Kokborok' : availableLanguages[0];
+    console.log('Initial Selected Language:', defaultLang);
+    return defaultLang;
+  });
 
   // Translation helper function
-  const t = (text: string): string => {
-    // Replace "Kokborok" (case insensitive) with the selected language
-    // But maintain the case (Kokborok -> Uchoi, kokborok -> uchoi)
+  const t = useMemo(() => (text: string): string => {
+    if (!selectedLanguage) return text;
+    
     return text.replace(/kokborok/gi, (match) => {
-      if (match === 'Kokborok') return selectedLanguage;
-      if (match === 'KOKBOROK') return selectedLanguage.toUpperCase();
-      return selectedLanguage.toLowerCase();
+      const displayLang = selectedLanguage || 'Kokborok';
+      if (match === 'Kokborok') return displayLang;
+      if (match === 'KOKBOROK') return displayLang.toUpperCase();
+      return displayLang.toLowerCase();
     });
-  };
+  }, [selectedLanguage]);
 
   return (
-    <LanguageContext.Provider value={{ selectedLanguage, setSelectedLanguage, t }}>
+    <LanguageContext.Provider value={{ selectedLanguage, setSelectedLanguage, availableLanguages, t }}>
       {children}
     </LanguageContext.Provider>
   );

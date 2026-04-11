@@ -2,28 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage, Language } from '../context/LanguageContext';
 import { Globe, ChevronDown, Check } from 'lucide-react';
 
-const LANGUAGES = [
-  'Kokborok',
-  'Reang',
-  'Jamatia',
-  'Uchoi',
-  'Noatia',
-  'Halam',
-  'Chakma',
-  'Mog',
-  'Munda',
-  'Oraon',
-  'Santhal',
-  'Kuki',
-  'Lusai (Mizo)',
-  'Chaimal',
-  'Garo',
-  'Lepcha'
-];
+
 
 const LanguageSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { selectedLanguage, setSelectedLanguage } = useLanguage();
+  const { selectedLanguage, setSelectedLanguage, availableLanguages } = useLanguage();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -100,11 +83,11 @@ const LanguageSelector: React.FC = () => {
           <div className="px-3 py-2 text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-widest">
             Select Language
           </div>
-          {LANGUAGES.map((lang, index) => (
+          {availableLanguages.map((lang, index) => (
             <button
               key={lang}
               onClick={() => {
-                setSelectedLanguage(lang as Language);
+                setSelectedLanguage(lang);
                 setIsOpen(false);
               }}
               style={{ transitionDelay: isOpen ? `${index * 30}ms` : '0ms' }}
