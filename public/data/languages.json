@@ -1,0 +1,12 @@
+{
+  "languages": [
+    {
+      "name": "Kokborok",
+      "file": "kokborok.json"
+    },
+    {
+      "name": "Telugu",
+      "file": "telugu.json"
+    }
+  ]
+}

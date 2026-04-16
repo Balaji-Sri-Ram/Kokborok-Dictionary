@@ -1,6 +1,6 @@
 import React from 'react';
 import { BookOpen, Languages } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface NavTabsProps {
   activeTab: 'dictionary' | 'translator';

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useLanguage, Language } from '../context/LanguageContext';
+import { useLanguage, Language } from '@/context/LanguageContext';
 import { Globe, ChevronDown, Check } from 'lucide-react';
 
 

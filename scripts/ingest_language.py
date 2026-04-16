@@ -1,28 +1,102 @@
 import os
 import json
 import time
+import re
 import pdfplumber
-try:
-    from docx import Document
-    DOCX_SUPPORT = True
-except ImportError:
-    DOCX_SUPPORT = False
+import spacy
 from google import generativeai as genai
 from dotenv import load_dotenv
 
-# Load API Key from .env.local
-load_dotenv(dotenv_path='.env.local')
+# Resolve project root
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+
+# Load API Key
+load_dotenv(dotenv_path=os.path.join(PROJECT_ROOT, '.env.local'))
 GENAI_API_KEY = os.getenv('VITE_GEMINI_API_KEY')
 
-if not GENAI_API_KEY:
-    print("Error: VITE_GEMINI_API_KEY not found in .env.local")
-    exit(1)
+DATA_DIR = os.path.join(PROJECT_ROOT, 'public', 'data')
+MANIFEST_FILE = os.path.join(DATA_DIR, 'languages.json')
+PROGRESS_FILE = os.path.join(PROJECT_ROOT, 'scripts', 'ingest_progress.json')
 
-genai.configure(api_key=GENAI_API_KEY)
-model = genai.GenerativeModel('gemini-2.0-flash')
+class ExtractionEngine:
+    def extract(self, text, lang_name):
+        raise NotImplementedError
 
-PROGRESS_FILE = 'scripts/ingest_progress.json'
-DICT_PATH = 'src/data/dictionary.json'
+class LocalNLPEngine(ExtractionEngine):
+    def __init__(self):
+        print("  [Local] Initializing Heuristic Engine...")
+        try:
+            self.nlp = spacy.load("en_core_web_sm")
+        except:
+            self.nlp = None
+
+    def is_translation_char(self, char):
+        # Treat anything non-ASCII or specific symbols as translation text
+        # to handle PDFs with custom font mapping (where Telugu is stored as Latin symbols)
+        return ord(char) > 127 or char in '~#<>[]'
+
+    def extract(self, text, lang_name):
+        entries = []
+        # Regex to match: English [pronunciation], pos - meaning
+        # Optional number between english and pronunciation
+        pattern = r"^\s*(?P<english>[a-zA-Z\s\-']+?)(?:\s+\d+)?\s*\[(?P<pronunciation>[^\]]*)\]\s*,\s*(?P<pos>[^-\s]+)?\s*-\s*(?P<translation>.+)$"
+        
+        for line in text.split('\n'):
+            line = line.strip()
+            if not line: continue
+            
+            match = re.match(pattern, line, re.I)
+            if match:
+                entries.append({
+                    "english": match.group("english").strip(),
+                    lang_name.lower(): match.group("translation").strip(),
+                    "pos": match.group("pos").strip() if match.group("pos") else "",
+                    "pronunciation": match.group("pronunciation").strip()
+                })
+        
+        return entries
+
+class GeminiEngine(ExtractionEngine):
+    def __init__(self, model_name='gemini-2.0-flash'):
+        if not GENAI_API_KEY:
+            raise ValueError("VITE_GEMINI_API_KEY not found in .env.local")
+        genai.configure(api_key=GENAI_API_KEY)
+        self.model = genai.GenerativeModel(model_name)
+
+    def extract(self, text, lang_name):
+        # Updated prompt for the new format
+        prompt = f"""
+        You are a dictionary data extractor. The provided text is from an English to {lang_name} dictionary.
+        Format per line: Word [Pronunciation], PartOfSpeech - Meaning
+        Example: "develop 160 [develop], verb - abhivruddi cheyyu"
+        
+        Extract word pairs into JSON array:
+        {{ 
+          "english": "string", 
+          "{lang_name.lower()}": "string", 
+          "pos": "string", 
+          "pronunciation": "string" 
+        }}
+        
+        IMPORTANT: If the {lang_name} text is scrambled/encoded in a custom font, map it back to real scripts.
+        IGNORE page numbers and serial numbers.
+        
+        TEXT:
+        \"\"\"{text}\"\"\"
+        """
+        
+        for attempt in range(3):
+            try:
+                # Add delay to respect 15 RPM limit (each batch is one request)
+                # With 20-page batches, we only need ~10 requests for a 200-page book
+                response = self.model.generate_content(prompt)
+                cleaned = response.text.strip().replace('```json', '').replace('```', '')
+                return json.loads(cleaned)
+            except Exception as e:
+                print(f"  [Error] Batch failed: {e}. Retrying...")
+                time.sleep(10)
+        return []
 
 def load_progress():
     if os.path.exists(PROGRESS_FILE):
@@ -33,138 +107,95 @@ def load_progress():
 def save_progress(lang, last_page):
     progress = load_progress()
     progress[lang] = last_page
-    with open(PROGRESS_FILE, 'w') as f:
+    if not os.path.exists(os.path.dirname(PROGRESS_FILE)):
+        os.makedirs(os.path.dirname(PROGRESS_FILE))
+    with open(PROGRESS_FILE, 'w', encoding='utf-8') as f:
         json.dump(progress, f, indent=2)
 
-def ai_parse_batch(text, lang_name):
-    prompt = f"""
-    You are a linguistic expert. I am providing you with text from a {lang_name} dictionary.
-    Extract the word pairs into a JSON array of objects with this structure:
-    {{
-        "english": "string",
-        "{lang_name.lower()}": "string",
-        "pos": "n., v.t., adj., etc.",
-        "pronunciation": "[bracketed text]"
-    }}
-    
-    CRITICAL RULES:
-    1. Focus ONLY on English and {lang_name}.
-    2. IGNORE Bengali script, page numbers, and headers.
-    3. If a word is split across lines, merge it.
-    4. Return ONLY the JSON array (no markdown, no preamble).
-    
-    TEXT:
-    \"\"\"{text}\"\"\"
-    """
-    
-    try:
-        response = model.generate_content(prompt)
-        # Strip markdown if present
-        cleaned = response.text.strip().replace('```json', '').replace('```', '')
-        return json.loads(cleaned)
-    except Exception as e:
-        print(f"  [Error] AI extraction failed: {e}")
-        return []
-
-def merge_to_master(parsed_entries, target_lang):
-    if not os.path.exists(DICT_PATH):
-        master_dict = []
+def update_manifest(lang_name, file_name):
+    if not os.path.exists(MANIFEST_FILE):
+        manifest = {"languages": []}
     else:
-        with open(DICT_PATH, 'r', encoding='utf-8') as f:
-            master_dict = json.load(f)
+        with open(MANIFEST_FILE, 'r', encoding='utf-8') as f:
+            manifest = json.load(f)
     
-    master_map = {entry['english'].lower(): entry for entry in master_dict}
-    lang_key = target_lang.lower()
-    
-    updated = 0
-    new = 0
-    
-    for entry in parsed_entries:
-        eng = entry.get('english', '').strip().lower()
-        if not eng: continue
-        
-        target_val = entry.get(lang_key, '').strip()
-        
-        if eng in master_map:
-            # Update existing entry with the new language
-            master_map[eng][lang_key] = target_val
-            updated += 1
-        else:
-            # Create new entry
-            new_entry = {
-                "english": entry.get('english', ''),
-                lang_key: target_val,
-                "pos": entry.get('pos', ''),
-                "pronunciation": entry.get('pronunciation', ''),
-                "kokborok": ""
-            }
-            master_dict.append(new_entry)
-            new += 1
-            
-    with open(DICT_PATH, 'w', encoding='utf-8') as f:
-        json.dump(master_dict, f, indent=2, ensure_ascii=False)
-    
-    return updated, new
+    if not any(l['name'].lower() == lang_name.lower() for l in manifest['languages']):
+        manifest['languages'].append({"name": lang_name.capitalize(), "file": file_name})
+        with open(MANIFEST_FILE, 'w', encoding='utf-8') as f:
+            json.dump(manifest, f, indent=2)
 
 def main():
-    print("=== Batch Language Ingestor v2 ===")
-    target_lang = input("Enter language name (e.g. Uchoi): ").strip()
-    file_path = input("Enter path to PDF: ").strip()
+    print("=== Universal Ingestor V5.1 (Optimized API + Flexible Models) ===")
+    print("1. Local Heuristic (No API Key, FAST)")
+    print("2. Gemini API Engine (SMART, converts symbols to real script)")
+    choice = input("Select Extraction Engine (1 or 2): ").strip()
     
-    if not os.path.exists(file_path):
-        print(f"Error: File not found at {file_path}")
+    if choice == '2':
+        model_name = input("Enter model name [default: gemini-2.0-flash]: ").strip()
+        if not model_name: model_name = 'gemini-2.0-flash'
+        engine = GeminiEngine(model_name)
+    else:
+        engine = LocalNLPEngine()
+    lang_name = input("Enter language: ").strip()
+    pdf_path = input("Enter PDF path: ").strip()
+    
+    if not os.path.exists(pdf_path):
+        print("Error: PDF not found.")
         return
 
-    # Resume capability
     progress = load_progress()
-    start_page = progress.get(target_lang, 0)
+    start_page = progress.get(lang_name, 0)
     
-    print(f"Target: {target_lang}")
-    print(f"Status: Resuming from page {start_page + 1}")
-    
-    batch_size = 5 # Process 5 pages at a time
-    wait_time = 5  # Seconds to wait between batches to avoid rate limits
-    
-    try:
-        with pdfplumber.open(file_path) as pdf:
-            total_pages = len(pdf.pages)
-            print(f"Total pages in file: {total_pages}")
+    # 20-30 page clusters reduce total API requests massively
+    batch_size = 20 if choice == '2' else 50
+    wait_time = 6 if choice == '2' else 0 # 6 second wait = Max 10 RPM (Safer than 15)
+
+    with pdfplumber.open(pdf_path) as pdf:
+        total_pages = len(pdf.pages)
+        for i in range(start_page, total_pages, batch_size):
+            end_p = min(i + batch_size, total_pages)
+            print(f"\n[Batch] Pages {i+1} to {end_p}...")
             
-            for i in range(start_page, total_pages, batch_size):
-                end_idx = min(i + batch_size, total_pages)
-                print(f"\n[Batch] Processing pages {i+1} to {end_idx}...")
+            text = ""
+            for p in range(i, end_p):
+                extracted = pdf.pages[p].extract_text()
+                if extracted: text += extracted + "\n"
+            
+            if not text.strip():
+                save_progress(lang_name, end_p)
+                continue
                 
-                batch_text = ""
-                for p_idx in range(i, end_idx):
-                    page_text = pdf.pages[p_idx].extract_text()
-                    if page_text:
-                        batch_text += page_text + "\n"
+            entries = engine.extract(text, lang_name)
+            if entries:
+                target_file = f"{lang_name.lower()}.json"
+                target_path = os.path.join(DATA_DIR, target_file)
                 
-                if not batch_text.strip():
-                    print(f"  [Skip] Pages {i+1}-{end_idx} appear empty.")
-                    save_progress(target_lang, end_idx)
-                    continue
+                existing = []
+                if os.path.exists(target_path):
+                    with open(target_path, 'r', encoding='utf-8') as f:
+                        existing = json.load(f)
                 
-                # AI Extraction
-                print(f"  [AI] Extracting {target_lang} entries...")
-                parsed = ai_parse_batch(batch_text, target_lang)
+                existing.extend(entries)
+                # Deduplicate
+                seen = set()
+                final = []
+                for e in existing:
+                    key = e['english'].lower().strip()
+                    if key not in seen:
+                        final.append(e)
+                        seen.add(key)
                 
-                if parsed:
-                    upd, nwi = merge_to_master(parsed, target_lang)
-                    print(f"  [Done] Updated {upd}, Created {nwi} entries.")
-                    save_progress(target_lang, end_idx)
-                else:
-                    print("  [Warning] No entries extracted in this batch.")
+                with open(target_path, 'w', encoding='utf-8') as f:
+                    json.dump(final, f, indent=2, ensure_ascii=False)
                 
-                # Rate limiting
-                if end_idx < total_pages:
-                    print(f"  [Wait] Cooling down for {wait_time}s...")
-                    time.sleep(wait_time)
-                    
-    except KeyboardInterrupt:
-        print("\n[Stopped] Progress has been saved. Run the script again to resume.")
-    except Exception as e:
-        print(f"\n[Critical Error] {e}")
+                update_manifest(lang_name, target_file)
+                print(f"  [Done] Extracted {len(entries)} entries. (Total: {len(final)})")
+                save_progress(lang_name, end_p)
+            else:
+                print("  [Warning] No data found in this batch.")
+            
+            if choice == '2' and end_p < total_pages:
+                time.sleep(wait_time)
 
 if __name__ == "__main__":
     main()

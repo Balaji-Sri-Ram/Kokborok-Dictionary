@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { TranslationResult } from '../types';
+import { TranslationResult } from '@/types';
 import { Volume2, AlertCircle } from 'lucide-react';
 
 interface ResultTableProps {

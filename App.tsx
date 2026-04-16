@@ -1,18 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { BookOpen, Info } from 'lucide-react';
-import { InputArea } from './components/InputArea';
-import { ResultTable } from './components/ResultTable';
-import { AnalysisPanel } from './components/AnalysisPanel';
-import ThemeToggle from './components/ThemeToggle';
-import LanguageSelector from './components/LanguageSelector';
-import NavTabs from './components/NavTabs';
-import { TranslatorView } from './components/TranslatorView';
-import { translateText } from './services/translator';
-import { analyzeWithAI } from './services/aiService';
-import { MOCK_EXAMPLES } from './constants';
-import { TranslationResult, AnalysisStatus, AI_MODELS } from './types';
-import { useLanguage } from './context/LanguageContext';
+import { InputArea } from '@/components/InputArea';
+import { ResultTable } from '@/components/ResultTable';
+import { AnalysisPanel } from '@/components/AnalysisPanel';
+import ThemeToggle from '@/components/ThemeToggle';
+import LanguageSelector from '@/components/LanguageSelector';
+import NavTabs from '@/components/NavTabs';
+import { TranslatorView } from '@/components/TranslatorView';
+import { translateText } from '@/services/translator';
+import { analyzeWithAI } from '@/services/aiService';
+import { MOCK_EXAMPLES } from '@/constants';
+import { TranslationResult, AnalysisStatus, AI_MODELS } from '@/types';
+import { useLanguage } from '@/context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Web Speech API types
@@ -58,7 +58,7 @@ const App: React.FC = () => {
   });
 
   const [analysisStatus, setAnalysisStatus] = useState<AnalysisStatus>(AnalysisStatus.IDLE);
-  const { selectedLanguage, t } = useLanguage();
+  const { selectedLanguage, t, dictionaryData, isLoadingData } = useLanguage();
 
   // Dynamic Browser Title
   useEffect(() => {
@@ -112,7 +112,7 @@ const App: React.FC = () => {
   };
 
   const handleTranslate = () => {
-    const translationResults = translateText(inputText, selectedLanguage);
+    const translationResults = translateText(inputText, selectedLanguage, dictionaryData);
     setResults(translationResults);
     setAnalysisStatus(AnalysisStatus.IDLE);
     setAnalysisContent('');
@@ -136,7 +136,7 @@ const App: React.FC = () => {
   const loadExample = (text: string) => {
     setInputText(text);
     setTimeout(() => {
-      setResults(translateText(text, selectedLanguage));
+      setResults(translateText(text, selectedLanguage, dictionaryData));
       setAnalysisStatus(AnalysisStatus.IDLE);
     }, 50);
   };
@@ -185,6 +185,15 @@ const App: React.FC = () => {
       </header>
 
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 py-8 transition-colors duration-300">
+
+        {isLoadingData && (
+          <div className="fixed inset-0 bg-white/20 dark:bg-black/20 backdrop-blur-[2px] z-50 flex items-center justify-center pointer-events-none">
+            <div className="bg-white dark:bg-zinc-900 p-4 rounded-2xl shadow-xl border border-slate-200 dark:border-zinc-800 flex items-center gap-3 animate-in zoom-in duration-300">
+              <div className="w-5 h-5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+              <span className="text-sm font-medium text-slate-600 dark:text-zinc-300">Loading {selectedLanguage} Dataset...</span>
+            </div>
+          </div>
+        )}
 
         <AnimatePresence mode="wait">
           {activeTab === 'dictionary' ? (

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Sparkles, Loader2, Bot, ChevronDown } from 'lucide-react';
-import { AnalysisStatus, AI_MODELS } from '../types';
-import { useLanguage } from '../context/LanguageContext';
+import { AnalysisStatus, AI_MODELS } from '@/types';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface AnalysisPanelProps {
   status: AnalysisStatus;

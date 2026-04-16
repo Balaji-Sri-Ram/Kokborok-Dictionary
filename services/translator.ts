@@ -1,23 +1,19 @@
-import { findEnglishTranslation, STATIC_DATASET } from '../constants';
-import { TranslationResult } from '../types';
+import { DictionaryEntry, TranslationResult } from '@/types';
+import { findEnglishTranslation } from '@/utils/searchUtils';
 
 /**
  * Main Kokborok-to-English function for Dictionary search.
  * Since the source dictionary is English-to-Kokborok, we perform a reverse
  * lookup on each Kokborok word to find its corresponding English headword.
  */
-export const translateText = (text: string, language: string = 'Kokborok'): TranslationResult[] => {
-  if (!text.trim()) return [];
+export const translateText = (text: string, language: string = 'Kokborok', dataset: DictionaryEntry[]): TranslationResult[] => {
+  if (!text.trim() || !dataset) return [];
 
-  // Split the input into words, ignoring common punctuation
   const tokens = text.trim().split(/[\s,]+/);
 
   return tokens.map(token => {
-    // Clean token (remove ending punctuation, lowercase)
     const cleaned = token.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "").toLowerCase();
-
-    // Find the English entries that have this word in definition
-    const entries = findEnglishTranslation(cleaned, language);
+    const entries = findEnglishTranslation(cleaned, language, dataset);
 
     return {
       original: token,
@@ -30,22 +26,19 @@ export const translateText = (text: string, language: string = 'Kokborok'): Tran
 
 /**
  * Clean dictionary Kokborok field for display in Translator.
- * Removes POS tags (n., v.t., etc.), numbers, and extra metadata.
  */
 const cleanKokborokValue = (val: string): string => {
   return val
     .replace(/^(v\.t\.i\.|interro\.|interj\.|indef\.|imper\.|pr\.v\.|v\.t\.|v\.i\.|suff\.|pref\.|pron\.|prep\.|conj\.|abbr\.|f\.v\.|p\.t\.|p\.v\.|adj\.|adv\.|aux\.|vt\.|vi\.|n\.|v\.)\s*-?\s*/i, '')
-    .split(/[,;]/)[0] // Take the first definition
+    .split(/[,;]/)[0]
     .trim();
 };
 
 /**
- * Advanced English-to-Kokborok Parallel Translator.
- * Uses a greedy phrase matching algorithm to prioritize multi-word matches 
- * (idioms/fixed phrases) over word-by-word lookup.
+ * Advanced English-to-Target Parallel Translator.
  */
-export const translateEnglishToTarget = (text: string, language: string = 'Kokborok'): string => {
-  if (!text.trim()) return "";
+export const translateEnglishToTarget = (text: string, language: string = 'Kokborok', dataset: DictionaryEntry[]): string => {
+  if (!text.trim() || !dataset) return "";
 
   const field = language.toLowerCase();
   const words = text.split(/(\s+|[.,!?;:])/);
@@ -76,7 +69,7 @@ export const translateEnglishToTarget = (text: string, language: string = 'Kokbo
 
       if (phraseWords.length === len) {
         const phraseStr = phraseWords.join(' ').toLowerCase();
-        const entry = STATIC_DATASET.find(e => e.english.toLowerCase() === phraseStr);
+        const entry = dataset.find(e => e.english.toLowerCase() === phraseStr);
         
         if (entry) {
           const val = (entry[field] as string) || (entry['kokborok'] as string) || "";
@@ -89,7 +82,7 @@ export const translateEnglishToTarget = (text: string, language: string = 'Kokbo
     }
 
     if (!foundPhrase) {
-      const entry = STATIC_DATASET.find(e => e.english.toLowerCase() === word.toLowerCase());
+      const entry = dataset.find(e => e.english.toLowerCase() === word.toLowerCase());
       if (entry) {
         const val = (entry[field] as string) || (entry['kokborok'] as string) || "";
         resultArr.push(cleanKokborokValue(val));
@@ -101,12 +94,12 @@ export const translateEnglishToTarget = (text: string, language: string = 'Kokbo
 
   return resultArr.join('');
 };
+
 /**
- * Advanced Kokborok-to-English Parallel Translator.
- * Uses a reverse greedy phrase matching algorithm to find English headwords.
+ * Advanced Target-to-English Parallel Translator.
  */
-export const translateTargetToEnglish = (text: string, language: string = 'Kokborok'): string => {
-  if (!text.trim()) return "";
+export const translateTargetToEnglish = (text: string, language: string = 'Kokborok', dataset: DictionaryEntry[]): string => {
+  if (!text.trim() || !dataset) return "";
 
   const words = text.split(/(\s+|[.,!?;:])/);
   let resultArr: string[] = [];
@@ -136,7 +129,7 @@ export const translateTargetToEnglish = (text: string, language: string = 'Kokbo
 
       if (phraseWords.length === len) {
         const phraseStr = phraseWords.join(' ').toLowerCase();
-        const entries = findEnglishTranslation(phraseStr, language);
+        const entries = findEnglishTranslation(phraseStr, language, dataset);
         if (entries.length > 0) {
           resultArr.push(entries[0].english);
           i = tokenIndices[tokenIndices.length - 1];
@@ -147,7 +140,7 @@ export const translateTargetToEnglish = (text: string, language: string = 'Kokbo
     }
 
     if (!foundPhrase) {
-      const entries = findEnglishTranslation(word.toLowerCase(), language);
+      const entries = findEnglishTranslation(word.toLowerCase(), language, dataset);
       if (entries.length > 0) {
         resultArr.push(entries[0].english);
       } else {

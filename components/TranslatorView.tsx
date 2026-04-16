@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Copy, Trash2, Languages, Volume2, Check, Sparkles, ArrowRightLeft } from 'lucide-react';
-import { translateEnglishToTarget, translateTargetToEnglish } from '../services/translator';
-import { useLanguage } from '../context/LanguageContext';
+import { translateEnglishToTarget, translateTargetToEnglish } from '@/services/translator';
+import { useLanguage } from '@/context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const TranslatorView: React.FC = () => {
@@ -12,10 +12,10 @@ export const TranslatorView: React.FC = () => {
   const [mode, setMode] = useState<'en-to-kb' | 'kb-to-en'>('en-to-kb');
   const [isSwapping, setIsSwapping] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { t, selectedLanguage } = useLanguage();
+  const { t, selectedLanguage, dictionaryData } = useLanguage();
 
   useEffect(() => {
-    if (!input.trim()) {
+    if (!input.trim() || !dictionaryData.length) {
       setOutput('');
       return;
     }
@@ -25,8 +25,8 @@ export const TranslatorView: React.FC = () => {
 
     timeoutRef.current = setTimeout(() => {
       const translation = mode === 'en-to-kb' 
-        ? translateEnglishToTarget(input, selectedLanguage) 
-        : translateTargetToEnglish(input, selectedLanguage);
+        ? translateEnglishToTarget(input, selectedLanguage, dictionaryData) 
+        : translateTargetToEnglish(input, selectedLanguage, dictionaryData);
       setOutput(translation);
       setIsTranslating(false);
     }, 300);
@@ -34,7 +34,7 @@ export const TranslatorView: React.FC = () => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [input, mode]);
+  }, [input, mode, dictionaryData, selectedLanguage]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(output);

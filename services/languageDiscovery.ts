@@ -1,4 +1,3 @@
-import dictionaryData from '../src/data/dictionary.json';
 
 const BASE_LANGUAGES = [
   'Kokborok', 'Reang', 'Jamatia', 'Uchoi', 'Noatia', 
@@ -8,35 +7,24 @@ const BASE_LANGUAGES = [
 ];
 
 /**
- * Scans the dictionary to find all available language keys.
- * Merges the base list with any new languages found in the JSON.
+ * Fetches available languages from the manifest and merges with base list.
  */
-export const getAvailableLanguages = (): string[] => {
-  const metadataKeys = ['english', 'pos', 'pronunciation', 'page', 'id', 'bengali'];
-  const detectedKeys = new Set<string>();
-  
-  // Check first 100 entries to catch languages that might not be in entry #1
-  const limit = Math.min(Array.isArray(dictionaryData) ? dictionaryData.length : 0, 100);
-  for (let i = 0; i < limit; i++) {
-    Object.keys(dictionaryData[i]).forEach(key => {
-      if (!metadataKeys.includes(key.toLowerCase())) {
-        detectedKeys.add(capitalize(key));
-      }
+export const getAvailableLanguages = async (): Promise<string[]> => {
+  try {
+    const response = await fetch('/data/languages.json');
+    if (!response.ok) throw new Error('Failed to load manifest');
+    const data = await response.json();
+    
+    const manifestLangs = data.languages.map((l: any) => l.name);
+    const combined = new Set([...BASE_LANGUAGES, ...manifestLangs]);
+    
+    return Array.from(combined).sort((a, b) => {
+      if (a === 'Kokborok') return -1;
+      if (b === 'Kokborok') return 1;
+      return a.localeCompare(b);
     });
+  } catch (error) {
+    console.error('Error loading languages:', error);
+    return BASE_LANGUAGES;
   }
-
-  // Combine Base list with Detected keys
-  const combined = new Set([...BASE_LANGUAGES, ...Array.from(detectedKeys)]);
-  
-  // Sort, but keep Kokborok first
-  return Array.from(combined).sort((a, b) => {
-    if (a === 'Kokborok') return -1;
-    if (b === 'Kokborok') return 1;
-    return a.localeCompare(b);
-  });
-};
-
-const capitalize = (s: string) => {
-  if (!s) return "";
-  return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 };
