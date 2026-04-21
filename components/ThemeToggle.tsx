@@ -69,7 +69,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ theme, toggleTheme }) => {
             ) : (
                 <Moon size={16} className="flex-shrink-0" />
             )}
-            <span>{isDark ? 'Light' : 'Dark'}</span>
+            <span className="hidden sm:inline">{isDark ? 'Light' : 'Dark'}</span>
         </button>
     );
 };
