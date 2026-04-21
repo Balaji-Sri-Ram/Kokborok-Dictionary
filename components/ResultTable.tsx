@@ -30,6 +30,15 @@ export const ResultTable: React.FC<ResultTableProps> = ({ results }) => {
     return map[cleaned] || map[cleaned + "."] || pos;
   };
 
+  const handleSpeak = (text: string) => {
+    if (!window.speechSynthesis || !text) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'hi-IN'; // Best effort for Kokborok pronunciation
+    utterance.rate = 0.8;
+    window.speechSynthesis.speak(utterance);
+  };
+
   return (
     <div className="bg-white dark:bg-zinc-950 rounded-2xl shadow-sm border border-slate-200 dark:border-zinc-800 overflow-hidden">
       <div className="px-6 py-4 border-b border-slate-100 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-900">
@@ -72,13 +81,16 @@ export const ResultTable: React.FC<ResultTableProps> = ({ results }) => {
                           {entry.english}
                         </td>
                         <td className="px-3 sm:px-6 py-3 sm:py-4">
-                          <div className="flex items-center gap-1.5 sm:gap-2 text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/50 w-fit px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-sm font-medium">
+                          <button
+                            onClick={() => handleSpeak(entry.pronunciation || item.original)}
+                            className="flex items-center gap-1.5 sm:gap-2 text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/50 w-fit px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-sm font-medium hover:bg-violet-100 dark:hover:bg-violet-900/50 transition-colors active:scale-95"
+                          >
                             <Volume2 size={12} className="sm:w-3.5 sm:h-3.5" />
                             {entry.pronunciation}
-                          </div>
+                          </button>
                         </td>
                         <td className="px-3 sm:px-6 py-3 sm:py-4">
-                          <span className="inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-violet-100 dark:bg-violet-950/60 text-violet-800 dark:text-violet-300">
+                          <span className="inline-flex items-center px-2.5 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-violet-100 dark:bg-violet-950/60 text-violet-800 dark:text-violet-300">
                             {expandPOS(entry.pos)}
                           </span>
                         </td>
@@ -89,10 +101,10 @@ export const ResultTable: React.FC<ResultTableProps> = ({ results }) => {
               } else {
                 return (
                   <tr key={index} className="bg-amber-50/30 dark:bg-amber-900/10">
-                    <td className="px-6 py-4">
-                      <span className="font-semibold text-slate-800 dark:text-slate-100 text-lg">{item.original}</span>
+                    <td className="px-3 sm:px-6 py-3 sm:py-4">
+                      <span className="font-semibold text-slate-800 dark:text-slate-100 text-base sm:text-lg">{item.original}</span>
                     </td>
-                    <td colSpan={3} className="px-6 py-4 text-slate-400 dark:text-zinc-500 italic">
+                    <td colSpan={3} className="px-3 sm:px-6 py-3 sm:py-4 text-slate-400 dark:text-zinc-500 italic">
                       <div className="flex items-center gap-2">
                         <AlertCircle size={16} />
                         Not in static cache. Use AI Analysis for this term.

@@ -59,6 +59,30 @@ export const TranslatorView: React.FC = () => {
     }, 300);
   };
 
+  const handleSpeak = (text: string) => {
+    if (!window.speechSynthesis || !text) return;
+    
+    // Stop any current speech
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Set language based on mode
+    // en-to-kb means output is Kokborok
+    // kb-to-en means output is English
+    if (mode === 'kb-to-en') {
+      utterance.lang = 'en-US';
+      utterance.rate = 0.9; // Slightly slower for clarity
+    } else {
+      // Best effort for Kokborok using Indian English or Hindi voice
+      utterance.lang = 'hi-IN';
+      utterance.rate = 0.8;
+      utterance.pitch = 1.1;
+    }
+    
+    window.speechSynthesis.speak(utterance);
+  };
+
   return (
     <div className="w-full max-w-5xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Direction Toggle Header */}
@@ -136,7 +160,8 @@ export const TranslatorView: React.FC = () => {
                     {isCopied ? <Check size={18} /> : <Copy size={18} />}
                   </button>
                   <button
-                    className="p-2 rounded-xl hover:bg-slate-200 dark:hover:bg-zinc-800 text-slate-500 dark:text-zinc-400 transition-colors"
+                    onClick={() => handleSpeak(output)}
+                    className="p-2 rounded-xl hover:bg-slate-200 dark:hover:bg-zinc-800 text-slate-500 dark:text-zinc-400 transition-colors active:scale-90"
                     title="Listen"
                   >
                     <Volume2 size={18} />

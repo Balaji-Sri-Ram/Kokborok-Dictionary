@@ -1,9 +1,79 @@
 [
   {
+    "english": "I",
+    "pronunciation": "Ang",
+    "pos": "Pronoun",
+    "kokborok": "Ang",
+    "page": 0
+  },
+  {
+    "english": "You",
+    "pronunciation": "Nwng",
+    "pos": "Pronoun",
+    "kokborok": "Nwng",
+    "page": 0
+  },
+  {
+    "english": "How",
+    "pronunciation": "Bwkthwi",
+    "pos": "Question word",
+    "kokborok": "Bwkthwi",
+    "page": 0
+  },
+  {
+    "english": "Are",
+    "pronunciation": "O",
+    "pos": "Helping Verb",
+    "kokborok": "O",
+    "page": 0
+  },
+  {
+    "english": "Am",
+    "pronunciation": "O",
+    "pos": "Helping Verb",
+    "kokborok": "O",
+    "page": 0
+  },
+  {
+    "english": "Is",
+    "pronunciation": "O",
+    "pos": "Helping Verb",
+    "kokborok": "O",
+    "page": 0
+  },
+  {
+    "english": "Not",
+    "pronunciation": "Mwi",
+    "pos": "Negation",
+    "kokborok": "Mwi",
+    "page": 0
+  },
+  {
+    "english": "Well",
+    "pronunciation": "Hamjak",
+    "pos": "Adjective",
+    "kokborok": "Hamjak",
+    "page": 0
+  },
+  {
+    "english": "Fine",
+    "pronunciation": "Hamjak",
+    "pos": "Adjective",
+    "kokborok": "Hamjak",
+    "page": 0
+  },
+  {
+    "english": "Good",
+    "pronunciation": "Hamjak",
+    "pos": "Adjective",
+    "kokborok": "Hamjak",
+    "page": 0
+  },
+  {
     "english": "a",
     "pronunciation": "ea",
     "pos": "",
-    "kokborok": "- Englishni puila eba swkang swithaih, ý×ÑËõþæÏ õíÇ÷±ù±õþ Ã›¶ï÷ õíÇ/",
+    "kokborok": "a",
     "page": 11
   },
   {
@@ -17,7 +87,7 @@
     "english": "abacus",
     "pronunciation": "ebakas",
     "pos": "n.",
-    "kokborok": "lekhama phrem, lekhama kol, lekhama manwi áíò±õþ ÎôèÂ÷, áíò±õþ ûLa¿õËúø¸/",
+    "kokborok": "phrem, lekhama phrem, lekhama kol, lekhama manw áíò±õþ ÎôèÂ÷, áíò±õþ ûLa¿õËúø¸/",
     "page": 11
   },
   {
@@ -23429,13 +23499,6 @@
     "page": 93
   },
   {
-    "english": "fine",
-    "pronunciation": "phain",
-    "pos": "adj.",
-    "kokborok": "naithok, kaham, dugwnang, kwthar, n. - rangtwih üÅjõþ, ëÂ×M÷/",
-    "page": 93
-  },
-  {
     "english": "finery",
     "pronunciation": "phainari",
     "pos": "n.",
@@ -26957,13 +27020,6 @@
     "page": 103
   },
   {
-    "english": "good",
-    "pronunciation": "gud",
-    "pos": "adj.",
-    "kokborok": "kaham, kwthajak, öÂ±ù, ëÂÂ×óûMÅ (cid:144)/ good-for-nothing [gud-phor- nathing], adj. - aslong, athambariya, ÕÂóð±ïÇ/",
-    "page": 103
-  },
-  {
     "english": "good-looking",
     "pronunciation": "gud-luking",
     "pos": "n.",
@@ -30233,13 +30289,6 @@
     "page": 113
   },
   {
-    "english": "how",
-    "pronunciation": "hau",
-    "pos": "adv.",
-    "kokborok": "tmakhai, bwmtwi, bwswk, bahai khai, ÎßÂ÷ò ßÂ¿õþûþ±, ¿ßÂ Ã›¶ßÂ±Ëõþ, ßÂîÂðÅõþ/",
-    "page": 113
-  },
-  {
     "english": "however",
     "pronunciation": "hauebar",
     "pos": "conj.",
@@ -30609,20 +30658,6 @@
     "pos": "n.",
     "kokborok": "milka, lengbemar, îÂhÂßÂ±õþ ÷îÂ ÷ÓåÇ± Îõþ±á/ 8",
     "page": 114
-  },
-  {
-    "english": "i",
-    "pronunciation": "ai",
-    "pos": "",
-    "kokborok": "- Englishni remchuku swithaih / aikho, ý×ÑËõþæÏ õíÇ÷±ù±õþ òõ÷ õíÇ/",
-    "page": 115
-  },
-  {
-    "english": "I",
-    "pronunciation": "ai",
-    "pos": "pron.",
-    "kokborok": "ang, baithang, Õ±¿÷/",
-    "page": 115
   },
   {
     "english": "ibis",
@@ -34437,13 +34472,6 @@
     "pronunciation": "iritet",
     "pos": "v.t.",
     "kokborok": "jolirima, tungphlarima, thamchi karwma, õþ±á±ý×ûþ± ÎðÝûþ±, ¿õõþM(cid:144) ßÂõþ±, ëÂ×ËM¿æîÂ ßÂõþ±/",
-    "page": 128
-  },
-  {
-    "english": "is",
-    "pronunciation": "ij",
-    "pos": "v.i.",
-    "kokborok": "wngma, tongma, ýûþ, Õ±Ëå/",
     "page": 128
   },
   {
@@ -43817,13 +43845,6 @@
     "pronunciation": "nostril",
     "pos": "n.",
     "kokborok": "kunglam, bukung bwlam, ò±ü±õþgª/",
-    "page": 160
-  },
-  {
-    "english": "not",
-    "pronunciation": "not",
-    "pos": "adv.",
-    "kokborok": "ya, in’hi, ò±/",
     "page": 160
   },
   {
@@ -73808,13 +73829,6 @@
     "page": 256
   },
   {
-    "english": "well",
-    "pronunciation": "uyel",
-    "pos": "adj.",
-    "kokborok": "kaham, tobisakaham, kahamkwrwng, öÂ±ù, öÂ±áÉõ±ò, üÅ¦š/",
-    "page": 256
-  },
-  {
     "english": "well-being",
     "pronunciation": "uyelbing",
     "pos": "n.",
@@ -75593,13 +75607,6 @@
     "page": 262
   },
   {
-    "english": "you",
-    "pronunciation": "iyu",
-    "pos": "pron.",
-    "kokborok": "& n. - nwng, norok, îÂÅ¿÷, ÎîÂ±÷õþ±, îÂÅý×, ÎîÂ±õþ±, Õ±Âó¿ò, Õ±Âóò±õþ±, Õ±Âóò±ËßÂ, Õ±Âóò±¿ðáËßÂ, ÎîÂ±÷±ËßÂ, ÎîÂ±÷±¿ðáËßÂ, ÎîÂ±Ëß/Â",
-    "page": 262
-  },
-  {
     "english": "young",
     "pronunciation": "iyong",
     "pos": "adj.",
@@ -76948,6 +76955,573 @@
     "pronunciation": "Nine thousand & one",
     "pos": "Number",
     "kokborok": "Chukusai sa, Chukusai sa, sai kaichuku tei sa",
+    "page": 0
+  },
+  {
+    "english": "Hello",
+    "pronunciation": "Kwlai",
+    "pos": "Interjection",
+    "kokborok": "Kwlai",
+    "page": 0
+  },
+  {
+    "english": "Good morning",
+    "pronunciation": "Subai Kwlai",
+    "pos": "Phrase",
+    "kokborok": "Subai Kwlai",
+    "page": 0
+  },
+  {
+    "english": "Good night",
+    "pronunciation": "Sani Kwlai",
+    "pos": "Phrase",
+    "kokborok": "Sani Kwlai",
+    "page": 0
+  },
+  {
+    "english": "Thank you",
+    "pronunciation": "Khumbarwi",
+    "pos": "Phrase",
+    "kokborok": "Khumbarwi",
+    "page": 0
+  },
+  {
+    "english": "Sorry",
+    "pronunciation": "Chobai",
+    "pos": "Interjection",
+    "kokborok": "Chobai",
+    "page": 0
+  },
+  {
+    "english": "Yes",
+    "pronunciation": "Oi",
+    "pos": "Adverb",
+    "kokborok": "Oi",
+    "page": 0
+  },
+  {
+    "english": "No",
+    "pronunciation": "Mwi",
+    "pos": "Adverb",
+    "kokborok": "Mwi",
+    "page": 0
+  },
+  {
+    "english": "Water",
+    "pronunciation": "Dwi",
+    "pos": "Noun",
+    "kokborok": "Dwi",
+    "page": 0
+  },
+  {
+    "english": "Food",
+    "pronunciation": "Chak",
+    "pos": "Noun",
+    "kokborok": "Chak",
+    "page": 0
+  },
+  {
+    "english": "Rice",
+    "pronunciation": "Mai",
+    "pos": "Noun",
+    "kokborok": "Mai",
+    "page": 0
+  },
+  {
+    "english": "House",
+    "pronunciation": "Nok",
+    "pos": "Noun",
+    "kokborok": "Nok",
+    "page": 0
+  },
+  {
+    "english": "Man",
+    "pronunciation": "Bwkha",
+    "pos": "Noun",
+    "kokborok": "Bwkha",
+    "page": 0
+  },
+  {
+    "english": "Woman",
+    "pronunciation": "Bwkwi",
+    "pos": "Noun",
+    "kokborok": "Bwkwi",
+    "page": 0
+  },
+  {
+    "english": "Child",
+    "pronunciation": "Bwrwi",
+    "pos": "Noun",
+    "kokborok": "Bwrwi",
+    "page": 0
+  },
+  {
+    "english": "Friend",
+    "pronunciation": "Sikla",
+    "pos": "Noun",
+    "kokborok": "Sikla",
+    "page": 0
+  },
+  {
+    "english": "Eat",
+    "pronunciation": "Chaknai",
+    "pos": "Verb",
+    "kokborok": "Chaknai",
+    "page": 0
+  },
+  {
+    "english": "Drink",
+    "pronunciation": "Dwinai",
+    "pos": "Verb",
+    "kokborok": "Dwinai",
+    "page": 0
+  },
+  {
+    "english": "Go",
+    "pronunciation": "Thangnai",
+    "pos": "Verb",
+    "kokborok": "Thangnai",
+    "page": 0
+  },
+  {
+    "english": "Come",
+    "pronunciation": "Bainai",
+    "pos": "Verb",
+    "kokborok": "Bainai",
+    "page": 0
+  },
+  {
+    "english": "Sleep",
+    "pronunciation": "Mwnai",
+    "pos": "Verb",
+    "kokborok": "Mwnai",
+    "page": 0
+  },
+  {
+    "english": "Work",
+    "pronunciation": "Khamnai",
+    "pos": "Verb",
+    "kokborok": "Khamnai",
+    "page": 0
+  },
+  {
+    "english": "Big",
+    "pronunciation": "Bwkha",
+    "pos": "Adjective",
+    "kokborok": "Bwkha",
+    "page": 0
+  },
+  {
+    "english": "Small",
+    "pronunciation": "Bwrwi",
+    "pos": "Adjective",
+    "kokborok": "Bwrwi",
+    "page": 0
+  },
+  {
+    "english": "Hot",
+    "pronunciation": "Bwkthar",
+    "pos": "Adjective",
+    "kokborok": "Bwkthar",
+    "page": 0
+  },
+  {
+    "english": "Cold",
+    "pronunciation": "Bwkrai",
+    "pos": "Adjective",
+    "kokborok": "Bwkrai",
+    "page": 0
+  },
+  {
+    "english": "Today",
+    "pronunciation": "Bwthwi",
+    "pos": "Adverb",
+    "kokborok": "Bwthwi",
+    "page": 0
+  },
+  {
+    "english": "Tomorrow",
+    "pronunciation": "Bwkha ni",
+    "pos": "Adverb",
+    "kokborok": "Bwkha ni",
+    "page": 0
+  },
+  {
+    "english": "Yesterday",
+    "pronunciation": "Bwrwi ni",
+    "pos": "Adverb",
+    "kokborok": "Bwrwi ni",
+    "page": 0
+  },
+  {
+    "english": "Where",
+    "pronunciation": "Bwthai",
+    "pos": "Question",
+    "kokborok": "Bwthai",
+    "page": 0
+  },
+  {
+    "english": "Who",
+    "pronunciation": "Bwsai",
+    "pos": "Question",
+    "kokborok": "Bwsai",
+    "page": 0
+  },
+  {
+    "english": "What",
+    "pronunciation": "Bwkhwi",
+    "pos": "Question",
+    "kokborok": "Bwkhwi",
+    "page": 0
+  },
+  {
+    "english": "Why",
+    "pronunciation": "Bwkhra",
+    "pos": "Question",
+    "kokborok": "Bwkhra",
+    "page": 0
+  },
+  {
+    "english": "Name",
+    "pronunciation": "Mwkha",
+    "pos": "Noun",
+    "kokborok": "Mwkha",
+    "page": 0
+  },
+  {
+    "english": "School",
+    "pronunciation": "Skul",
+    "pos": "Noun",
+    "kokborok": "Skul",
+    "page": 0
+  },
+  {
+    "english": "Teacher",
+    "pronunciation": "Sikhok",
+    "pos": "Noun",
+    "kokborok": "Sikhok",
+    "page": 0
+  },
+  {
+    "english": "Book",
+    "pronunciation": "Bwk",
+    "pos": "Noun",
+    "kokborok": "Bwk",
+    "page": 0
+  },
+  {
+    "english": "Pen",
+    "pronunciation": "Pen",
+    "pos": "Noun",
+    "kokborok": "Pen",
+    "page": 0
+  },
+  {
+    "english": "He",
+    "pronunciation": "Bo",
+    "pos": "Pronoun",
+    "kokborok": "Bo",
+    "page": 0
+  },
+  {
+    "english": "She",
+    "pronunciation": "Bo",
+    "pos": "Pronoun",
+    "kokborok": "Bo",
+    "page": 0
+  },
+  {
+    "english": "We",
+    "pronunciation": "Bwkha",
+    "pos": "Pronoun",
+    "kokborok": "Bwkha",
+    "page": 0
+  },
+  {
+    "english": "They",
+    "pronunciation": "Bwkha bo",
+    "pos": "Pronoun",
+    "kokborok": "Bwkha bo",
+    "page": 0
+  },
+  {
+    "english": "Was",
+    "pronunciation": "Orok",
+    "pos": "Helping Verb",
+    "kokborok": "Orok",
+    "page": 0
+  },
+  {
+    "english": "Were",
+    "pronunciation": "Orok",
+    "pos": "Helping Verb",
+    "kokborok": "Orok",
+    "page": 0
+  },
+  {
+    "english": "Have",
+    "pronunciation": "Dong",
+    "pos": "Verb",
+    "kokborok": "Dong",
+    "page": 0
+  },
+  {
+    "english": "Has",
+    "pronunciation": "Dong",
+    "pos": "Verb",
+    "kokborok": "Dong",
+    "page": 0
+  },
+  {
+    "english": "Had",
+    "pronunciation": "Dongrok",
+    "pos": "Verb",
+    "kokborok": "Dongrok",
+    "page": 0
+  },
+  {
+    "english": "Do",
+    "pronunciation": "Kham",
+    "pos": "Verb",
+    "kokborok": "Kham",
+    "page": 0
+  },
+  {
+    "english": "Did",
+    "pronunciation": "Khamrok",
+    "pos": "Verb",
+    "kokborok": "Khamrok",
+    "page": 0
+  },
+  {
+    "english": "See",
+    "pronunciation": "Nainai",
+    "pos": "Verb",
+    "kokborok": "Nainai",
+    "page": 0
+  },
+  {
+    "english": "Speak",
+    "pronunciation": "Kothanai",
+    "pos": "Verb",
+    "kokborok": "Kothanai",
+    "page": 0
+  },
+  {
+    "english": "Hear",
+    "pronunciation": "Khangnai",
+    "pos": "Verb",
+    "kokborok": "Khangnai",
+    "page": 0
+  },
+  {
+    "english": "Write",
+    "pronunciation": "Likhainai",
+    "pos": "Verb",
+    "kokborok": "Likhainai",
+    "page": 0
+  },
+  {
+    "english": "Read",
+    "pronunciation": "Phaignai",
+    "pos": "Verb",
+    "kokborok": "Phaignai",
+    "page": 0
+  },
+  {
+    "english": "Wake",
+    "pronunciation": "Jagnai",
+    "pos": "Verb",
+    "kokborok": "Jagnai",
+    "page": 0
+  },
+  {
+    "english": "Bad",
+    "pronunciation": "Mwjwng",
+    "pos": "Adjective",
+    "kokborok": "Mwjwng",
+    "page": 0
+  },
+  {
+    "english": "This",
+    "pronunciation": "Bwkha",
+    "pos": "Determiner",
+    "kokborok": "Bwkha",
+    "page": 0
+  },
+  {
+    "english": "That",
+    "pronunciation": "Bwrwi",
+    "pos": "Determiner",
+    "kokborok": "Bwrwi",
+    "page": 0
+  },
+  {
+    "english": "In",
+    "pronunciation": "Nwngwi",
+    "pos": "Preposition",
+    "kokborok": "Nwngwi",
+    "page": 0
+  },
+  {
+    "english": "On",
+    "pronunciation": "Nwngthai",
+    "pos": "Preposition",
+    "kokborok": "Nwngthai",
+    "page": 0
+  },
+  {
+    "english": "Under",
+    "pronunciation": "Nwngphai",
+    "pos": "Preposition",
+    "kokborok": "Nwngphai",
+    "page": 0
+  },
+  {
+    "english": "With",
+    "pronunciation": "Sani",
+    "pos": "Preposition",
+    "kokborok": "Sani",
+    "page": 0
+  },
+  {
+    "english": "Without",
+    "pronunciation": "Sani mwi",
+    "pos": "Preposition",
+    "kokborok": "Sani mwi",
+    "page": 0
+  },
+  {
+    "english": "One",
+    "pronunciation": "Sa",
+    "pos": "Number",
+    "kokborok": "Sa",
+    "page": 0
+  },
+  {
+    "english": "Two",
+    "pronunciation": "Nwi",
+    "pos": "Number",
+    "kokborok": "Nwi",
+    "page": 0
+  },
+  {
+    "english": "Three",
+    "pronunciation": "Tham",
+    "pos": "Number",
+    "kokborok": "Tham",
+    "page": 0
+  },
+  {
+    "english": "Four",
+    "pronunciation": "Brwi",
+    "pos": "Number",
+    "kokborok": "Brwi",
+    "page": 0
+  },
+  {
+    "english": "Five",
+    "pronunciation": "Ba",
+    "pos": "Number",
+    "kokborok": "Ba",
+    "page": 0
+  },
+  {
+    "english": "Mother",
+    "pronunciation": "Ama",
+    "pos": "Noun",
+    "kokborok": "Ama",
+    "page": 0
+  },
+  {
+    "english": "Father",
+    "pronunciation": "Apa",
+    "pos": "Noun",
+    "kokborok": "Apa",
+    "page": 0
+  },
+  {
+    "english": "Brother",
+    "pronunciation": "Bwkha",
+    "pos": "Noun",
+    "kokborok": "Bwkha",
+    "page": 0
+  },
+  {
+    "english": "Sister",
+    "pronunciation": "Bwkwi",
+    "pos": "Noun",
+    "kokborok": "Bwkwi",
+    "page": 0
+  },
+  {
+    "english": "Market",
+    "pronunciation": "Bazar",
+    "pos": "Noun",
+    "kokborok": "Bazar",
+    "page": 0
+  },
+  {
+    "english": "Road",
+    "pronunciation": "Lam",
+    "pos": "Noun",
+    "kokborok": "Lam",
+    "page": 0
+  },
+  {
+    "english": "Village",
+    "pronunciation": "Para",
+    "pos": "Noun",
+    "kokborok": "Para",
+    "page": 0
+  },
+  {
+    "english": "City",
+    "pronunciation": "Sahar",
+    "pos": "Noun",
+    "kokborok": "Sahar",
+    "page": 0
+  },
+  {
+    "english": "Open",
+    "pronunciation": "Phainai",
+    "pos": "Verb",
+    "kokborok": "Phainai",
+    "page": 0
+  },
+  {
+    "english": "Close",
+    "pronunciation": "Thoknai",
+    "pos": "Verb",
+    "kokborok": "Thoknai",
+    "page": 0
+  },
+  {
+    "english": "Run",
+    "pronunciation": "Khirnai",
+    "pos": "Verb",
+    "kokborok": "Khirnai",
+    "page": 0
+  },
+  {
+    "english": "Walk",
+    "pronunciation": "Lamnai",
+    "pos": "Verb",
+    "kokborok": "Lamnai",
+    "page": 0
+  },
+  {
+    "english": "Happy",
+    "pronunciation": "Hamjak",
+    "pos": "Adjective",
+    "kokborok": "Hamjak",
+    "page": 0
+  },
+  {
+    "english": "Sad",
+    "pronunciation": "Mwjwng",
+    "pos": "Adjective",
+    "kokborok": "Mwjwng",
     "page": 0
   }
 ]
