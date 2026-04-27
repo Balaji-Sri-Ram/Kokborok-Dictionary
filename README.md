@@ -48,5 +48,3 @@ The static JSON data was generated through a custom Python extraction pipeline:
 *   **Data Processing:** Python (`pdfplumber`, `re`)
 *   **AI/NLP:** Google Gemini API (`@google/genai`), Web Speech API
 *   **Data Storage:** Local JSON files
-
----
