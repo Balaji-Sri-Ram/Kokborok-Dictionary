@@ -170,14 +170,6 @@ const App: React.FC = () => {
             <span className="hidden xl:inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-indigo-50 dark:bg-violet-950/60 text-indigo-700 dark:text-violet-300 border border-indigo-100 dark:border-violet-800/50 uppercase tracking-tight">
               Dataset V3.1
             </span>
-            <a 
-              href={`https://en.wikipedia.org/wiki/${selectedLanguage}`} 
-              target="_blank" 
-              rel="noopener" 
-              className="p-1.5 sm:p-2 text-slate-400 hover:text-indigo-600 dark:text-zinc-500 dark:hover:text-violet-400 transition-colors"
-            >
-              <Info size={18} />
-            </a>
             <LanguageSelector />
             <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
           </div>
@@ -260,10 +252,21 @@ const App: React.FC = () => {
 
       <footer className="bg-white dark:bg-zinc-900 border-t border-slate-200 dark:border-zinc-800 py-6 mt-12 transition-colors duration-300">
         <div className="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 dark:text-zinc-500 text-sm">
-          <p>© 2026 {t('Kokborok')} Lexlator - {t('Dictionary and Translator Web App')}</p>
-          <div className="flex gap-6">
+          <p className="text-[11px] sm:text-sm text-center w-full md:w-auto">© 2026 {t('Kokborok')} Lexlator - {t('Dictionary and Translator Web App')}</p>
+          <div className="flex gap-4 sm:gap-6 text-xs sm:text-sm items-center">
             <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-emerald-500"></div> Model: Gemini 3 Pro</span>
-            <span>Dataset V3.1</span>
+            <span className="flex items-center gap-1.5">
+              <a 
+                href={`https://en.wikipedia.org/wiki/${selectedLanguage}`} 
+                target="_blank" 
+                rel="noopener" 
+                className="text-slate-400 hover:text-indigo-600 dark:text-zinc-500 dark:hover:text-violet-400 transition-colors"
+                title={`${selectedLanguage} on Wikipedia`}
+              >
+                <Info size={14} className="sm:w-[15px] sm:h-[15px]" />
+              </a>
+              Dataset V3.1
+            </span>
           </div>
         </div>
       </footer>

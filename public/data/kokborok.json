@@ -29113,13 +29113,6 @@
     "page": 110
   },
   {
-    "english": "hello",
-    "pronunciation": "helu",
-    "pos": "interj.",
-    "kokborok": "ah ! oh ! üË¥¤±ñò üÓäÂßÂ ús/",
-    "page": 110
-  },
-  {
     "english": "hell stone",
     "pronunciation": "hel-stun",
     "pos": "n.",
@@ -73948,6 +73941,13 @@
     "page": 257
   },
   {
+    "english": "What",
+    "pronunciation": "Bwkhwi",
+    "pos": "Question word",
+    "kokborok": "Bwkhwi",
+    "page": 257
+  },
+  {
     "english": "werewolf",
     "pronunciation": "uyerulph",
     "pos": "n.",
@@ -75617,7 +75617,7 @@
     "english": "your",
     "pronunciation": "iyur",
     "pos": "adj.",
-    "kokborok": "nini, norokni, ËîÂ±÷±õþ, ÎîÂ±÷±Ëðõþ, Õ±Âóò±õþ, Õ±Âóò±Ëðõþ/ yours faithfully [iyurs phethphuli], adv. - nono puituthahngjak, Õ±Âóò±õþ ¿õ(cid:157)«™¦¸/",
+    "kokborok": "Nwng, norokni, ËîÂ±÷±õþ, ÎîÂ±÷±Ëðõþ, Õ±Âóò±õþ, Õ±Âóò±Ëðõþ/ yours faithfully [iyurs phethphuli], adv. - nono puituthahngjak, Õ±Âóò±õþ ¿õ(cid:157)«™¦¸/",
     "page": 262
   },
   {
