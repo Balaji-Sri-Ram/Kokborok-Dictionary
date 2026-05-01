@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useLanguage, Language } from '@/context/LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
+import { Language } from '@/types';
 import { Globe, ChevronDown, Check } from 'lucide-react';
 
 
