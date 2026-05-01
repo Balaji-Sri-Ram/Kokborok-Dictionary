@@ -166,10 +166,21 @@ const App: React.FC = () => {
           </div>
 
           {/* Right: Actions */}
-          <div className="flex items-center justify-end gap-1 sm:gap-3 flex-shrink-0">
-            <span className="hidden xl:inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-indigo-50 dark:bg-violet-950/60 text-indigo-700 dark:text-violet-300 border border-indigo-100 dark:border-violet-800/50 uppercase tracking-tight">
-              Dataset V3.1
-            </span>
+          <div className="flex items-center justify-end gap-2 sm:gap-3 flex-shrink-0">
+            <div className="hidden md:flex items-center gap-1">
+              <a 
+                href={`https://en.wikipedia.org/wiki/${selectedLanguage}`} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex text-slate-400 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-violet-400 transition-colors"
+                title={`${selectedLanguage} on Wikipedia`}
+              >
+                <Info size={18} />
+              </a>
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-indigo-50 dark:bg-violet-950/60 text-indigo-700 dark:text-violet-300 border border-indigo-100 dark:border-violet-800/50 uppercase tracking-tight">
+                Dataset V3.1
+              </span>
+            </div>
             <LanguageSelector />
             <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
           </div>
@@ -259,8 +270,8 @@ const App: React.FC = () => {
               <a 
                 href={`https://en.wikipedia.org/wiki/${selectedLanguage}`} 
                 target="_blank" 
-                rel="noopener" 
-                className="text-slate-400 hover:text-indigo-600 dark:text-zinc-500 dark:hover:text-violet-400 transition-colors"
+                rel="noopener noreferrer" 
+                className="text-slate-400 hover:text-indigo-600 dark:text-zinc-500 dark:hover:text-violet-400 transition-colors md:hidden"
                 title={`${selectedLanguage} on Wikipedia`}
               >
                 <Info size={14} className="sm:w-[15px] sm:h-[15px]" />
