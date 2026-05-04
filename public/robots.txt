@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kokborok-lexlator.vercel.app/sitemap.xml
