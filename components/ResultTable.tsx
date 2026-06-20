@@ -107,7 +107,7 @@ export const ResultTable: React.FC<ResultTableProps> = ({ results }) => {
                     <td colSpan={3} className="px-3 sm:px-6 py-3 sm:py-4 text-slate-400 dark:text-zinc-500 italic">
                       <div className="flex items-center gap-2">
                         <AlertCircle size={16} />
-                        Not in static cache. Use AI Analysis for this term.
+                        Word not found. Try using AI Analysis for further analysis.
                       </div>
                     </td>
                   </tr>

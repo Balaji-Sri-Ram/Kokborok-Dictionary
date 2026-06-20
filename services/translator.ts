@@ -87,7 +87,7 @@ export const translateEnglishToTarget = (text: string, language: string = 'Kokbo
         const val = (entry[field] as string) || (entry['kokborok'] as string) || "";
         resultArr.push(cleanKokborokValue(val));
       } else {
-        resultArr.push(word);
+        resultArr.push("Word not Found");
       }
     }
   }
@@ -144,7 +144,7 @@ export const translateTargetToEnglish = (text: string, language: string = 'Kokbo
       if (entries.length > 0) {
         resultArr.push(entries[0].english);
       } else {
-        resultArr.push(word);
+        resultArr.push("Word not Found");
       }
     }
   }

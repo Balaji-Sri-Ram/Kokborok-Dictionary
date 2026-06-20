@@ -138,7 +138,11 @@ export const TranslatorView: React.FC = () => {
           </div>
           <div className="relative overflow-hidden rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-50/50 dark:bg-zinc-950/50 backdrop-blur-sm shadow-sm min-h-[12rem] md:min-h-[16rem] transition-all duration-300">
             <div className="p-6 text-lg leading-relaxed text-slate-800 dark:text-zinc-100 whitespace-pre-wrap">
-              {output || (
+              {output === 'Word not Found' ? (
+                <span className="text-slate-400 dark:text-zinc-600 italic">
+                  {output}
+                </span>
+              ) : output || (
                 <span className="text-slate-400 dark:text-zinc-600 italic">
                   {isTranslating ? t('Translating...') : t('Result will appear here...')}
                 </span>
@@ -146,7 +150,7 @@ export const TranslatorView: React.FC = () => {
             </div>
             
             <div className="absolute bottom-4 right-4 flex items-center gap-2">
-              {output && (
+              {output && output !== 'Word not Found' && (
                 <>
                   <button
                     onClick={handleCopy}
