@@ -40,7 +40,6 @@ The static JSON data was generated through a custom Python extraction pipeline:
     *   **Regex Pattern Matching:** Identifies Headwords, Parts of Speech (n., v., adj.), and definitions.
 4.  **Output:** The structured data is saved as `dictionary.json`.
 
----
 
 ## 🛠 Tech Stack
 
