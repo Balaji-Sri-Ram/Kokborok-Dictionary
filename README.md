@@ -49,4 +49,6 @@ The static JSON data was generated through a custom Python extraction pipeline:
 *   **Data Storage:** Local JSON files
 
 
+## Deployments
 
+Live Demo Link : https://kokborok-lexlator.vercel.app
