@@ -1,6 +1,6 @@
 # Kokborok Dictionary & Translator Project
 
-This project is a comprehensive Kokborok-English dictionary application that combines static dataset lookups with AI-powered analysis.
+This project is a modern, responsive web application designed to bridge the language gap between English and indigenous languages like Kokborok (and potentially others like Uchoi).
 
 ## 🔄 Project Workflow (End-to-End)
 
