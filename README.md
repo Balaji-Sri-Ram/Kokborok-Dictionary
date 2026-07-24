@@ -40,15 +40,3 @@ The static JSON data was generated through a custom Python extraction pipeline:
     *   **Regex Pattern Matching:** Identifies Headwords, Parts of Speech (n., v., adj.), and definitions.
 4.  **Output:** The structured data is saved as `dictionary.json`.
 
-
-## 🛠 Tech Stack
-
-*   **Frontend:** React (Vite), TypeScript, Tailwind CSS
-*   **Data Processing:** Python (`pdfplumber`, `re`)
-*   **AI/NLP:** Google Gemini API (`@google/genai`), Web Speech API
-*   **Data Storage:** Local JSON files
-
-
-## Deployments
-
-Live Demo Link : https://kokborok-lexlator.vercel.app
