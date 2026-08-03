@@ -6,6 +6,10 @@ This project is a modern, responsive web application designed to bridge the lang
 
 This section describes the complete flow of data from user input to the final response.
 
+### 1. User Input
+The user interacts with the application in two ways:
+*   **Text Input:** Typing a word or phrase into the search bar.
+*   **Voice Input:** Using the microphone button (Web Speech API) to speak Kokborok words.
 
 ### 2. Processing & Lookup
 Once input is received, the application performs two parallel operations:
