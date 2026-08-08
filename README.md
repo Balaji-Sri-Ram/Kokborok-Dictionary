@@ -2,7 +2,7 @@
 
 This project is a modern, responsive web application designed to bridge the language gap between English and indigenous languages like Kokborok (and potentially others like Uchoi).
 
-## 🔄 Project Workflow (End-to-End)
+## Project Workflow (End-to-End)
 
 This section describes the complete flow of data from user input to the final response.
 
@@ -41,7 +41,7 @@ The static JSON data was generated through a custom Python extraction pipeline:
 4.  **Output:** The structured data is saved as `dictionary.json`.
 
 
-## 🛠 Tech Stack
+## Tech Stack
 
 *   **Frontend:** React (Vite), TypeScript, Tailwind CSS
 *   **Data Processing:** Python (`pdfplumber`, `re`)
