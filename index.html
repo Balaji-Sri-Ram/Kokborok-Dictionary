@@ -55,24 +55,145 @@
       animation: none;
       mix-blend-mode: normal;
     }
+
+    /* Initial Loading Screen Styles */
+    #initial-loader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+      background-color: #f8fafc;
+      position: relative;
+      overflow: hidden;
+    }
+
+    html.dark #initial-loader {
+      background-color: #0f172a;
+    }
+
+    .loader-bg-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 45vw;
+      height: 45vw;
+      min-width: 300px;
+      min-height: 300px;
+      max-width: 600px;
+      max-height: 600px;
+      color: #4f46e5;
+      opacity: 0.08; /* Slightly increased */
+      pointer-events: none;
+      z-index: 0;
+      animation: pulse-watermark 6s ease-in-out infinite;
+    }
+
+    html.dark .loader-bg-icon {
+      color: #a78bfa;
+      opacity: 0.10; /* Slightly increased */
+    }
+
+    @keyframes pulse-watermark {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.05);
+      }
+    }
+
+    .loader-content-wrapper {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .loader-title {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #1e293b; /* slate-800 */
+      margin-bottom: 24px;
+      letter-spacing: -0.025em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    html.dark .loader-title {
+      color: #f4f4f5; /* zinc-100 */
+    }
+
+    .loader-title-highlight {
+      color: #4f46e5; /* indigo-600 */
+    }
+
+    html.dark .loader-title-highlight {
+      color: #a78bfa; /* violet-400 */
+    }
+
+    .loader-progress-container {
+      width: 240px;
+      height: 4px;
+      background-color: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    html.dark .loader-progress-container {
+      background-color: #334155;
+    }
+
+    .loader-progress-bar {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 40%;
+      background-color: #4f46e5; /* indigo-600 */
+      border-radius: 4px;
+      animation: progress-slide 1.5s infinite ease-in-out;
+    }
+
+    @keyframes progress-slide {
+      0% {
+        left: -40%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
   </style>
-  <!-- <script type="importmap">
- {
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
-    "react/": "https://aistudiocdn.com/react@^19.2.1/",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.31.0",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
-    "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0"
-  }
-} 
-</script> -->
   <link rel="stylesheet" href="/index.css">
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <div id="initial-loader">
+      <svg class="loader-bg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 170" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M 100,156 Q 60,135 10,131 L 10,65 L 18,65" />
+        <path d="M 100,156 Q 140,135 190,131 L 190,65 L 182,65" />
+        
+        <path d="M 100,148 Q 65,125 25,118 L 25,45 L 33,45" />
+        <path d="M 100,148 Q 135,125 175,118 L 175,45 L 167,45" />
+        
+        <path d="M 100,140 L 100,50 Q 70,15 40,25 L 40,105 Q 70,115 100,140 Z" />
+        <path d="M 100,140 L 100,50 Q 130,15 160,25 L 160,105 Q 130,115 100,140 Z" />
+      </svg>
+      <div class="loader-content-wrapper">
+        <div class="loader-title">
+          Kokborok <span class="loader-title-highlight">Lexlator</span>
+        </div>
+        <div class="loader-progress-container">
+          <div class="loader-progress-bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
   <script type="module" src="/index.tsx"></script>
 </body>
 

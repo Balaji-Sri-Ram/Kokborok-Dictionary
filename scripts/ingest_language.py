@@ -33,7 +33,7 @@ class LocalNLPEngine(ExtractionEngine):
 
     def is_translation_char(self, char):
         # Treat anything non-ASCII or specific symbols as translation text
-        # to handle PDFs with custom font mapping (where Telugu is stored as Latin symbols)
+        # to handle PDFs with custom font mapping
         return ord(char) > 127 or char in '~#<>[]'
 
     def extract(self, text, lang_name):
