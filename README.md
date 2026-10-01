@@ -23,6 +23,14 @@ Once input is received, the application performs two parallel operations:
 *   **Result:** Exact matches or phrase matches are returned immediately.
 
 
+#### B. AI Analysis (Generative AI)
+*   **Technique:** If the user requests "Analyze", the input is sent to the **Google Gemini API**.
+*   **Model:** Uses `gemini-2.5-flash`.
+*   **Process:**
+    1.  Constructs a prompt acting as an "expert linguist".
+    2.  Requests "Meaning" and "Example Usage".
+    3.  Fetches the generated response.
+*   **Result:** A rich, context-aware explanation is displayed alongside the static definition.
 
 
 ### 3. Data Extraction Pipeline (Backend)
