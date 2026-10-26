@@ -59,4 +59,8 @@ const LANGUAGES = [
 2. Click the Language Selector (Globe icon) and select your new language.
 3. Try searching for a word in the dictionary — the results will now be pulled from the new language field in `dictionary.json`.
 
+> [!TIP]
+> **Maximum Accuracy**: The `ingest_language.py` script uses your Gemini API key (from `.env.local`) to process the text. This is much more accurate than traditional code because the AI understands the linguistic context of the dictionary entries.
 
+> [!CAUTION]
+> **API Limits**: If your PDF is very large (hundreds of pages), the script might reach the AI token limit. It is best to process a few pages at a time or contact me to upgrade the script for "Batch Processing."
