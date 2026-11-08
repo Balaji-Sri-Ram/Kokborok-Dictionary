@@ -14,7 +14,13 @@ The user interacts with the application in two ways:
 ### 2. Processing & Lookup
 Once input is received, the application performs two parallel operations:
 
-
+#### A. Static Lookup (Local Dictionary)
+* **Pre-Loaded Dataset:** Queries the pre-built `dictionary.json` file stored directly on the client side.
+* **Exact & Partial Matching:** 
+  * Checks for direct headword matches (e.g., matching the exact Kokborok or English term).
+  * Executes fuzzy/substring searching to catch variations, prefixed terms, or common spelling differences.
+* **Instant Retrieval:** Offers sub-millisecond response times without requiring external API calls or network latency.
+* **Core Output:** Provides the primary ground-truth definition, part of speech (noun, verb, adjective), and standard Bengali/English translations.
 
 #### B. AI Analysis (Generative AI)
 *   **Technique:** If the user requests "Analyze", the input is sent to the **Google Gemini API**.
